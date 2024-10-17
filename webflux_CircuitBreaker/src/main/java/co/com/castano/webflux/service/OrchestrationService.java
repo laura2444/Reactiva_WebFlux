@@ -19,8 +19,7 @@ public class OrchestrationService {
         this.stepOneService = stepOneService;
         this.stepTwoService = stepTwoService;
         this.stepThreeService = stepThreeService;
-        this.webClient = webClientBuilder.baseUrl("http://localhost:9001").build(); // URL del servicio webhook
-
+        this.webClient = webClientBuilder.baseUrl("http://webhook:9001").build(); // URL del servicio webhook
     }
 
     public Mono<String> startOrchestration(String requestBody) {

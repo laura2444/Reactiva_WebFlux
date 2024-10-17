@@ -1,0 +1,87 @@
+version: '3.9'
+
+services:
+
+  step-one:
+    image: step-one:latest
+    container_name: step-one
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_APPLICATION_NAME=ResolveEnigmaAp
+      - SPRING_CLOUD_CONFIG_URI=http://host.docker.internal:8888
+      - SPRING_PROFILES_ACTIVE=dev
+    networks:
+      - orquest-network
+    
+  step-two:
+    image: step-two:latest
+    container_name: step-two
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_APPLICATION_NAME=ResolveEnigmaApdos
+      - SPRING_CLOUD_CONFIG_URI=http://host.docker.internal:8888
+      - SPRING_PROFILES_ACTIVE=dev
+    networks:
+      - orquest-network
+  
+  step-three:
+    image: step-three:latest
+    container_name: step-three
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_APPLICATION_NAME=ResolveEnigmaAptres
+      - SPRING_CLOUD_CONFIG_URI=http://host.docker.internal:8888
+      - SPRING_PROFILES_ACTIVE=dev
+    networks:
+      - orquest-network
+
+  webhook:
+    image: webhook:latest
+    container_name: webhook
+    ports:
+      - "9001:9001"
+    environment:
+      - SPRING_APPLICATION_NAME=webhook
+      - SPRING_CLOUD_CONFIG_URI=http://host.docker.internal:8888
+      - SPRING_PROFILES_ACTIVE=dev
+    networks:
+      - orquest-network
+
+  orquest:
+    image: orquest:latest
+    container_name: orquest
+    ports:
+      - "9000:9000"
+    depends_on:
+      - step-one
+      - step-two
+      - step-three
+      - webhook
+    environment:
+      - SPRING_APPLICATION_NAME=webflux
+      - SPRING_CLOUD_CONFIG_URI=http://host.docker.internal:8888
+      - SPRING_PROFILES_ACTIVE=dev
+    networks:
+      - orquest-network
+
+  batch:
+    image: batch:latest
+    container_name: batch
+    ports:
+      - "8084:8084"
+    depends_on:
+      - orquest
+    environment:
+      - SPRING_APPLICATION_NAME=batch
+      - SPRING_CLOUD_CONFIG_URI=http://host.docker.internal:8888
+      - SPRING_PROFILES_ACTIVE=dev
+    networks:
+      - orquest-network
+      
+networks:
+  orquest-network:
+    driver: bridge
+

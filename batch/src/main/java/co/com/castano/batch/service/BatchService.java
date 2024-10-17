@@ -13,10 +13,10 @@ public class BatchService {
 
     @Autowired
     public BatchService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("http://localhost:9000/api/steps").build();
+        this.webClient = webClientBuilder.baseUrl("http://orquest:9000/api/steps").build();
     }
 
-    @Scheduled(fixedRate = 120000) // 120000 ms = 2m
+    @Scheduled(fixedRate = 10000) // 120000 ms = 2m
     public void Process() {
         String json = """
         {

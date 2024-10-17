@@ -91,6 +91,18 @@
 			<version>2.0.2</version> <!-- Asegúrate de que la versión coincida -->
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-client</artifactId>
+			<version>4.1.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bootstrap</artifactId>
+			<version>4.1.4</version>
+		</dependency>
+
 
 	</dependencies>
 

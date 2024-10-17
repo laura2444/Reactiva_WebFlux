@@ -23,7 +23,7 @@ public class StepThreeService {
     @CircuitBreaker(name = "stepThreeCircuitBreaker", fallbackMethod = "fallbackthree")
     public Mono<String> stepThreeResponse(String requestBody) {
         return webClient.post()
-                .uri("http://localhost:8082/getStep")
+                .uri("http://step-three:8082/getStep")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(requestBody)
                 .retrieve()

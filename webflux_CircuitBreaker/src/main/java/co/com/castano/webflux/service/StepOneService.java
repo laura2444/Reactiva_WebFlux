@@ -24,7 +24,7 @@ public class StepOneService {
     @CircuitBreaker(name = "stepOneCircuitBreaker", fallbackMethod = "fallback")
     public Mono<String> stepOneResponse(String requestBody) {
         return webClient.post()
-                .uri("http://localhost:8080/getStep")
+                .uri("http://step-one:8080/getStep")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(requestBody)
                 .retrieve()

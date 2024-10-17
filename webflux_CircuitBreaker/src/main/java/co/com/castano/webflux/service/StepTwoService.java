@@ -23,7 +23,7 @@ public class StepTwoService {
     @CircuitBreaker(name = "stepTwoCircuitBreaker", fallbackMethod = "fallbacktwo")
     public Mono<String> stepTwoResponse(String requestBody) {
         return webClient.post()
-                .uri("http://localhost:8081/getStep")
+                .uri("http://step-two:8081/getStep")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(requestBody)
                 .retrieve()
